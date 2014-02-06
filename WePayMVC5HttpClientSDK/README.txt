@@ -12,17 +12,24 @@ EXAMPLE - MVC Controller Action
 
 		public async Task<ActionResult> CreateCheckout()
         {
-            CreateCheckoutRequest req = new CreateCheckoutRequest();					<------------new Request object from 'Checkout.cs' class
-            req.account_id = WePayConfiguration.accountId;								<------------Properties to pass as Arguemnts (could come from form)
-            req.short_description = "Test Checkout for dev account";					<---
-            req.amount = 13.33M;														<---	
-            req.type = "SERVICE";//this has SPECIFIC values check WePay documentation.	<---
+			//new Request object from 'Checkout.cs' class
+            CreateCheckoutRequest req = new CreateCheckoutRequest();
 
-            Checkout chk = new Checkout();												<------------Create 'Checkout' instance
-            var response = await chk.CreateCheckoutAsync(req);							<------------Pass Request to XXXmethod that will Invoke
-																										HttpClient (WePayHttpClient.cs) and 
-																										return response
-            if (response.ErrorResponse != null)											<------------Each Response has an added ErrorResponse property
+			//Properties to pass as Arguemnts (could come from form)
+            req.account_id = WePayConfiguration.accountId;								
+            req.short_description = "Test Checkout for dev account";					
+            req.amount = 13.33M;															
+            req.type = "SERVICE";//this has SPECIFIC values check WePay documentation.	
+
+			//Create 'Checkout' instance
+            Checkout chk = new Checkout();												
+
+			//pass Request to XXXMethod on insstance that will Invoke
+			//HttpClient (WePayHttpClient.cs) and return response
+            var response = await chk.CreateCheckoutAsync(req);							
+
+			//Each Response has an added ErrorResponse property
+            if (response.ErrorResponse != null)					
             {
                 ViewData["Error"] = response.ErrorResponse;
             }
@@ -41,7 +48,8 @@ SETUP -
 		<add key="WepayAccountId" value="XXXXXXXx"/>
 		<add key="WepayClientSecret" value="XXXXXXX"/>
 		<add key="WepayClientId" value="XXXXXX"/>
-		<add key="ProductionMode" value="false" />								<--------------set to 'true' for production
+		//set to 'true' for Production Mode
+		<add key="ProductionMode" value="false" />
 		<!-- END 'WEPAY' -->
 
 		In MVC Global.asax add the following inside the Application_Start method (same as Brads')
@@ -60,16 +68,17 @@ SETUP -
 
 		namespace WePayMVC5Example.Controllers
 		{
-			public class CheckoutController : BaseController					<-----------Base Controller (Shown Below)
+			//Base Controller (Shown below)
+			public class CheckoutController : BaseController
 			{
-				public CheckoutController(IGlobalVariables gVars)				<-----------Constructor
+				public CheckoutController(IGlobalVariables gVars)
 					: base(gVars)
 				{ }
 
 				public async Task<ActionResult> GetCheckout()
 				{
 					GetCheckoutRequest req = new GetCheckoutRequest();
-					..........
+					...code not shown....
 
 					ViewData["CheckoutInfo"] = response;
 					return View();
@@ -84,7 +93,7 @@ SETUP -
 			/// IGlobalVariables is for DI functionality using Ninject.
 			/// It injects 'GlobalVariables.cs' located in IoC folder.
 			/// </summary>
-			public class BaseController : Controller							<-----Base Controller
+			public class BaseController : Controller
 			{
 				protected IGlobalVariables globals;
 
@@ -97,6 +106,7 @@ SETUP -
 				protected override void OnActionExecuting(ActionExecutingContext ctx)
 				{
 					base.OnActionExecuting(ctx);
+					//Sets the hostUrl property on custom GlobalVariables class in MVC App
 					globals.hostUrl = Request.Url.Scheme + "://" + Request.Url.Authority;			<------Sets the hosturl property on custom GlobalVariables class
 				}
 			}
