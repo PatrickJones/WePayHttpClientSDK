@@ -154,7 +154,7 @@ namespace WePayMVC5HttpClientSDK.WePayAPITypes
         public string email { get; set; }
         //The billing address on the card (a valid JSON object, not a JSON serialized string). 
         [Required]
-        public AddressStructure address { get; set; }
+        public JObject address { get; set; }
         //The IP address of the user this card belongs to. This should be sent if you are not using WePay's Javascript library.
         [MaxLength(16)]
         public string original_ip { get; set; }

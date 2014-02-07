@@ -30,5 +30,10 @@ namespace WePayMVC5HttpClientSDK.WePayAPIStructures
         public string postcode { get; set; }
         [MaxLength(2)]
         public string country { get; set; }//The 2-letters ISO-3166-1 country code at https://en.wikipedia.org/wiki/ISO_3166-1#Officially_assigned_code_elements
+
+        public JObject ToJSON()
+        {
+            return JObject.FromObject(this);
+        }
     }
 }
