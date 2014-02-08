@@ -40,7 +40,7 @@ namespace WePayMVC5HttpClientSDK.WePayAPITypes
 
     public class CreateBatchResponse
     {
-        public List<BatchCall> calls { get; set; }
+        public List<BatchCallResponses> calls { get; set; }
 
         [JsonIgnore]
         public ErrorResponse ErrorResponse { get; set; }
@@ -58,5 +58,15 @@ namespace WePayMVC5HttpClientSDK.WePayAPITypes
         public string reference_id { get; set; }
         [Required]//ONLY IF THE API CALL REQUIRES AUTHORIZATION
         public Dictionary<string, string> parameters { get; set; }
+    }
+
+    public class BatchCallResponses
+    {
+        public string call { get; set; }
+        public string reference_id { get; set; }
+        public Dictionary<string, object> response { get; set; }
+
+        [JsonIgnore]
+        public ErrorResponse ErrorResponse { get; set; }
     }
 }

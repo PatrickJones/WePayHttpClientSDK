@@ -13,8 +13,6 @@ namespace WePayMVC5HttpClientSDK.WePayAPIStructures
     //WePay Documentation has two constructions address (US & Non-Us) https://www.wepay.com/developer/reference/structures under the Address Structure
     public class AddressStructure
     {
-        [MaxLength(255)]
-        public string name { get; set; }
         [MaxLength(60)]
         public string address1 { get; set; }
         [MaxLength(60)]
