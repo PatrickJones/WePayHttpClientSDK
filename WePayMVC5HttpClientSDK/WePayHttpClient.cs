@@ -113,6 +113,10 @@ namespace WePayMVC5HttpClientSDK
 
                 result = JsonConvert.DeserializeObject<ResponseT>(success);
             }
+            catch (WePayException)
+            {
+                throw;
+            }
             catch (Exception)
             {
                 throw new HttpRequestException("Request to WePay Service failed.");
@@ -207,6 +211,10 @@ namespace WePayMVC5HttpClientSDK
 
                 result = JsonConvert.DeserializeObject<ResponseT>(success);
             }
+            catch (WePayException)
+            {
+                throw;
+            }
             catch (Exception)
             {
                 throw new HttpRequestException("Request to WePay Service failed.");
@@ -299,6 +307,10 @@ namespace WePayMVC5HttpClientSDK
 
                 result = JsonConvert.DeserializeObject<ResponseT>(success);
             }
+            catch (WePayException)
+            {
+                throw;
+            }
             catch (Exception)
             {
                 throw new HttpRequestException("Request to WePay Service failed.");
@@ -390,6 +402,10 @@ namespace WePayMVC5HttpClientSDK
                 }
 
                 result = JsonConvert.DeserializeObject<ResponseT>(success);
+            }
+            catch (WePayException)
+            {
+                throw;
             }
             catch (Exception)
             {
